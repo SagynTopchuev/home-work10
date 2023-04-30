@@ -1,7 +1,7 @@
 export const product = [
   {
     id: "1",
-    productName: "Москич",
+    productName: "Москвич",
     url: "https://www.ixbt.com/img/n1/news/2022/7/1/in_article_webp_477ac7ea0c_large.png",
     price: 120,
     quantity: 0,

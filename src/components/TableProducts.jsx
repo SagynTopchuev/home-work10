@@ -1,77 +1,84 @@
 import React from "react";
 import styled from "styled-components";
+// import { product } from "../utils/Constants";
+import { useContextStore } from "./context";
 
-export const TableProducts = ({
-  store,
-  incrementProductHandler,
-  decrementProductHandler,
-  remove,
-}) => {
-  const totalPrice = store.map((item) => {
-    if (item.quantity === 0) {
-      const result = { ...item, price: (item.price = 0) };
-      return result.price;
-    } else {
-      return item.price;
-    }
-  });
-  const resultTotal = totalPrice.reduce((a, b) => a + b, 0);
+export const TableProducts = () =>
+  //   {
+  //   store,
+  //   incrementProductHandler,
+  //   decrementProductHandler,
+  //   remove,
+  // }
+  {
+    const {
+      store = [],
+      incrementProduct,
+      decrementProduc,
+      removeProduct,
+    } = useContextStore();
+    const totalPrice = store?.product.map((item) => {
+      if (item.quantity === 0) {
+        const result = { ...item, price: (item.price = 0) };
+        return result.price;
+      } else {
+        return item.price;
+      }
+    });
+    const resultTotal = totalPrice.reduce((a, b) => a + b, 0);
 
-  return (
-    <Container>
-      <div>
-        <Table>
-          <Thead>
-            <p>Car</p>
-            <p>Car Name</p>
-            <p>Price</p>
-            <p>Quantity</p>
-            <p>Remove</p>
-          </Thead>
-          <ol>
-            {store.map((item) => {
-              return (
-                item.quantity !== 0 && (
-                  <li key={item.id}>
-                    <Tbody>
-                      <TImg>
-                        <img src={item.url} />
-                      </TImg>
-                      <div>{item.productName}</div>
-                      <div>${item.price}</div>
-                      <ContainerCount>
-                        <ButtonCount
-                          onClick={() => decrementProductHandler(item.id)}
-                        >
-                          -
-                        </ButtonCount>
-                        <span>{item.quantity}</span>
-                        <ButtonCount
-                          onClick={() => incrementProductHandler(item.id)}
-                        >
-                          +
-                        </ButtonCount>
-                      </ContainerCount>
-                      <div>
-                        <ButtonRemove onClick={() => remove(item.id)}>
-                          Remove
-                        </ButtonRemove>
-                      </div>
-                    </Tbody>
-                  </li>
-                )
-              );
-            })}
-          </ol>
-          ;
-        </Table>
-        <div style={{ marginBottom: "40px" }}>
-          <p style={{ fontSize: "3rem" }}>Total: {resultTotal}</p>
+    return (
+      <Container>
+        <div>
+          <Table>
+            <Thead>
+              <p>Car</p>
+              <p>Car Name</p>
+              <p>Price</p>
+              <p>Quantity</p>
+              <p>Remove</p>
+            </Thead>
+            <ol>
+              {store.product.map((item) => {
+                return (
+                  item.quantity !== 0 && (
+                    <li key={item.id}>
+                      <Tbody>
+                        <TImg>
+                          <img src={item.url} />
+                        </TImg>
+                        <div>{item.productName}</div>
+                        <div>${item.price}</div>
+                        <ContainerCount>
+                          <ButtonCount onClick={() => decrementProduc(item.id)}>
+                            -
+                          </ButtonCount>
+                          <span>{item.quantity}</span>
+                          <ButtonCount
+                            onClick={() => incrementProduct(item.id)}
+                          >
+                            +
+                          </ButtonCount>
+                        </ContainerCount>
+                        <div>
+                          <ButtonRemove onClick={() => removeProduct(item.id)}>
+                            Remove
+                          </ButtonRemove>
+                        </div>
+                      </Tbody>
+                    </li>
+                  )
+                );
+              })}
+            </ol>
+          </Table>
+          <TotalDiv>
+            <p style={{ fontSize: "3rem" }}>Total: {resultTotal}</p>
+          </TotalDiv>
         </div>
-      </div>
-    </Container>
-  );
-};
+      </Container>
+    );
+  };
 const Container = styled.div`
   margin: 20px 0;
   width: 100%;
@@ -155,4 +162,7 @@ const ButtonRemove = styled.button`
   border-radius: 4px;
   border: none;
   font-size: 1.4rem;
+`;
+const TotalDiv = styled.div`
+  margin-bottom: 40px;
 `;

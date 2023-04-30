@@ -1,6 +1,13 @@
 .App {
   text-align: center;
 }
+body {
+  background-image: url("https://w.forfun.com/fetch/51/51e56fd721c8363a3107fe2a9d792935.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-x: center;
+  color: white;
+}
 
 .App-logo {
   height: 40vmin;
